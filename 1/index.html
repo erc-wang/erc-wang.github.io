@@ -88,7 +88,7 @@
             def align_pyramid(img1, img2, edge=False):
                 if img1.shape[0] < 500:
                     return align(img1, img2, edge=edge)
-                res, shift = align_pyramid(sk.transform.resize(img1, [img1.shape[0] // 2, img1.shape[1] // 2], anti_aliasing=True), sk.transform.resize(img2, [img2.shape[0] // 2, img2.shape[1] // 2], anti_aliasing=True), edge=edge)
+                res, shift = align_pyramid(sk.transform.rescale(img1, 0.5, anti_aliasing=True), sk.transform.rescale(img2, 0.5, anti_aliasing=True), edge=edge)
                 shift *= 2
                 alignment, update = align(np.roll(img1, shift, (0, 1)), img2, [-5, 5], edge=edge)
                 return alignment, shift + update
@@ -104,6 +104,8 @@
             # Works on smaller images but uses significantly more time on the larger images, was not able to see results of tif
         </pre>
     </code>
+    <p>Sample Canny Edge Result</p>
+    <img src="pictures/emir_canny.jpg">
     <h3>Results</h3>
     <p>We utilize the following code to display the results of the jpg pictures</p>
     <code>
@@ -115,6 +117,17 @@
                 im_out = np.dstack([ar, ag, b])
                 skio.imshow(im_out)
                 skio.show()
+        </pre>
+        <pre>
+
+            for tif in tifs:
+                b, g, r = separate_channels("images/" + tif)
+                ag, g_shift = align_pyramid(g, b)
+                ar, r_shift = align_pyramid(r, b)
+                im_out = np.dstack([ar, ag, b])
+                skio.imshow(im_out)
+                skio.show()
+                plt.imsave("results/" + tif[:len(tif) - 3] + "jpg", im_out)
         </pre>
     </code>
 </body>
