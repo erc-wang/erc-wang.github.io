@@ -105,7 +105,7 @@
         </pre>
     </code>
     <p>Sample Canny Edge Result</p>
-    <img src="pictures/emir_canny.jpg">
+    <img src="pictures/emir_canny.jpg" width="500" height="500">
     <h3>Results</h3>
     <p>We utilize the following code to display the results of the jpg pictures</p>
     <code>
@@ -118,8 +118,12 @@
                 skio.imshow(im_out)
                 skio.show()
         </pre>
+    </code>
+    <img src="pictures/cathedral.jpg" width="500" height="500">
+    <img src="pictures/monastery.jpg" width="500" height="500">
+    <img src="pictures/tobolsk.jpg" width="500" height="500">
+    <code>
         <pre>
-
             for tif in tifs:
                 b, g, r = separate_channels("images/" + tif)
                 ag, g_shift = align_pyramid(g, b)
