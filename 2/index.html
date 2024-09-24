@@ -10,42 +10,17 @@
     </style>
 </head>
 <body>
-    <h1>Project 1</h1>
-    <h3>Imports</h3>
-    <code>
-        <pre>
-        import numpy as np
-        import skimage as sk
-        import skimage.io as skio
-        import scipy
-        from matplotlib import pyplot as plt
-        </pre>
-    </code>
-    <h3>Functions</h3>
-    <p>The start of the project followed the skeleton provided in the colorized_skel.py file. We separate the channels just as the skeleton shows.</p>
-    <p>Crop helper function that find first corner value that is no longer either entirely black or white. We use a rudimentary method of checking the corners until we find a value that starkly contrasts the rest of the photo.</p>
-    <p>I utilize Normalize Cross-Correlation to find alignment</p>
-    <p>There is commented code for edges that was attempted that creates similar images for the jpgs, but fails to run in a timely manner for tifs. </p>
-    <p>For aligning, I used ncc to score positions within the images that shared the highest score values.</p>
-    <p>As exhaustive search is inefficient and too slow for larger sized images, we use an image pyramid to align the larger images</p>
-    <p>Attempt to create canny edge detector image mask to use edges to score images instead of pixel color</p>
-    <p>Sample Canny Edge Result</p>
-    <img src="pictures/emir_canny.jpg" width="500" height="500">
-    <h3>Results</h3>
-    <img src="pictures/cathedral.jpg" width="500" height="500">
-    <img src="pictures/monastery.jpg" width="500" height="500">
-    <img src="pictures/tobolsk.jpg" width="500" height="500">
-    <img src="pictures/church.jpg" width="500" height="500">
-    <img src="pictures/emir.jpg" width="500" height="500">
-    <img src="pictures/harvesters.jpg" width="500" height="500">
-    <img src="pictures/icon.jpg" width="500" height="500">
-    <img src="pictures/lady.jpg" width="500" height="500">
-    <img src="pictures/melons.jpg" width="500" height="500">
-    <img src="pictures/onion_church.jpg" width="500" height="500">
-    <img src="pictures/sculpture.jpg" width="500" height="500">
-    <img src="pictures/self_portrait.jpg" width="500" height="500">
-    <img src="pictures/three_generations.jpg" width="500" height="500">
-    <img src="pictures/train.jpg" width="500" height="500">
+    <h1>Project 2: Fun with Filters and Frequencies!</h1>
+    <h3>About</h3>
+    <p>This project shows various ways to manipulate frequencies to exhibit interesting visual effects. The project will cover image sharpening, blurring, hybrid images and blends.</p>
+    <h3>Finite Difference Operator</h3>
+    <img src="pictures/cameraman.png" width="500" height="500">
+    <p>Using the provided finite difference operators we can achieve the D_x and D_y variants of the image through convolution</p>
+    <div class="image">
+        <img src="pictures/cameraman_dx.png" width="500" height="500">
+        <span class="caption">Dx</span>
+    </div>
+    <img src="pictures/cameraman._dypng" width="500" height="500">
     <p>Some of the result images especially ones where there are more artifacts as a result of the cropping for channels, do not have the greatest alignment but can be remedied by proper edge scoring. I was not able to try a variety of edge options, however I saw many sublisted on the wikipedia page for Canny Edge Detecting and I am sure that one of them would be viable and more efficient.</p>
 </body>
 </html>
