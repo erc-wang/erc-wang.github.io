@@ -58,7 +58,7 @@
             </td>
         </tr>
     </table>
-    <p>Finding magnitude and binarize is the same</p>
+    <p>Finding magnitude and binarize is the same process as earlier</p>
     <table>
         <tr>
             <td>
@@ -72,6 +72,32 @@
         </tr>
     </table>
     <p>The results of the non blurred variant leads to choppier and straight lines while the blurred version is smoother all around</p>
+    <h3>Image Sharpening</h3>
+    <p>We can sharpen an image by heightening the prominence of the image's high frequencies. We can find the high frequencies by subtracting the blurred image from the original effectively getting rid of all of the image's low frequencies</p>
+    <table>
+        <tr>
+            <td>
+                <img src="output/taj_blurred.png" width="500" height="500">
+                <p>Blurred</p>
+            </td>
+            <td>
+                <img src="output/taj_high.png" width="500" height="500">
+                <p>High Frequencies</p>
+            </td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <td>
+                <img src="pictures/taj.png" width="500" height="500">
+                <p>Original</p>
+            </td>
+            <td>
+                <img src="output/taj_sharpened.png" width="500" height="500">
+                <p>Sharpened</p>
+            </td>
+        </tr>
+    </table>
     <h3>Gaussian and Laplacian Stacks</h3>
     <p>In a Gaussian stack, we apply a increasingly higher sigma to the gaussian kernel in order to blur the image further without subsampling</p>
     <p>In a Laplacian stack, we subtract the following Gaussian stack level from the current level to find the changes between them<p>
