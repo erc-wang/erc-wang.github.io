@@ -49,7 +49,7 @@
     <table>
         <tr>
             <td>
-                <img src="output/cameraman_blurred_dx.png" width="400" height="500">
+                <img src="output/cameraman_blurred_dx.png" width="500" height="500">
                 <p>Dx</p>
             </td>
             <td>
@@ -62,12 +62,55 @@
     <table>
         <tr>
             <td>
-                <img src="output/cameraman_blurred_magnitude.png" width="400" height="500">
+                <img src="output/cameraman_blurred_magnitude.png" width="500" height="500">
                 <p>Magnitude</p>
             </td>
             <td>
                 <img src="output/cameraman_blurred_binarized.png" width="500" height="500">
                 <p>Binarized</p>
+            </td>
+        </tr>
+    </table>
+    <p>The results of the non blurred variant leads to choppier and straight lines while the blurred version is smoother all around</p>
+    <h3>Gaussian and Laplacian Stacks</h3>
+    <p>In a Gaussian stack, we apply a increasingly higher sigma to the gaussian kernel in order to blur the image further without subsampling</p>
+    <p>In a Laplacian stack, we subtract the following Gaussian stack level from the current level to find the changes between them<p>
+    <p>Gaussian & Laplacian stack of an apple:</p>
+    <table>
+        <tr>
+            <td>
+                <img src="output/apple_gaussian_1.png" width="500" height="500">
+                <p>Dx</p>
+            </td>
+            <td>
+                <img src="output/apple_gaussian_2.png" width="500" height="500">
+                <p>Dy</p>
+            </td>
+            <td>
+                <img src="output/apple_gaussian_3.png" width="500" height="500">
+                <p>Dx</p>
+            </td>
+            <td>
+                <img src="output/apple_gaussian_4.png" width="500" height="500">
+                <p>Dy</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="output/apple_laplacian_1.png" width="500" height="500">
+                <p>Dx</p>
+            </td>
+            <td>
+                <img src="output/apple_laplacian_2.png" width="500" height="500">
+                <p>Dy</p>
+            </td>
+            <td>
+                <img src="output/apple_laplacian_3.png" width="500" height="500">
+                <p>Dx</p>
+            </td>
+            <td>
+                <img src="output/apple_laplacian_4.png" width="500" height="500">
+                <p>Dy</p>
             </td>
         </tr>
     </table>
