@@ -16,18 +16,20 @@
     <h3>Finite Difference Operator</h3>
     <img src="pictures/cameraman.png" width="500" height="500">
     <p>Using the provided finite difference operators we can achieve the D_x and D_y variants of the image through convolution</p>
-    <div class="row">
-        <div class="column">
-            <div class="image">
-            <img src="output/cameraman_dx.png" width="500" height="500">
-            <span class="caption">Dx</span>
-        </div>
-        <div class="column">
-            <div class="image">
-            <img src="output/cameraman_dy.png" width="500" height="500">
-            <span class="caption">Dy</span>
-        </div>
-    </div>
+    <table>
+        <tr>
+            <td>
+                <img src="output/cameraman_dx.png" width="500" height="500">
+                <p>Dx</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="output/cameraman_dy.png" width="500" height="500">
+                <p>Dx</p>
+            </td>
+        </tr>
+    </table>
     <p>We can also find the magnitude through the previous two images, as well as find the edge image through binarization</p>
     <p>Some of the result images especially ones where there are more artifacts as a result of the cropping for channels, do not have the greatest alignment but can be remedied by proper edge scoring. I was not able to try a variety of edge options, however I saw many sublisted on the wikipedia page for Canny Edge Detecting and I am sure that one of them would be viable and more efficient.</p>
 </body>
