@@ -49,20 +49,28 @@
             </td>
         </tr>
     </table>
-    <p>We can also find the magnitude through the previous two images, as well as find the edge image through binarization</p>
-    <p>The magnitude is found through calculating the pixel-wise distance of the partial derivatives calculated from the previous two images to demonstrate the change in image intensity is within the photo</p>
+    <h3>Computing the "Mid-Way Face"</h3>
+    <p>The midway shape was calculated by creating a balanced calculation of the points using a factor warp_frac. These new points can then be triangulated using the same process from the previous step.</p>
+    <p>Warping the faces into these new positions requires the implementation of solving for an Affine Matrix.</p>
+    <p>For a given triangle, we can say that matrix contains a row of the triangle's x values, a row of the triangle's y values, and a row of ones concatenated at the bottom.</p>
+    <p>Matrix A and matrix B are created the same, corresponding to the original image's triangles, and the midway shape's triangles.</p>
+    <p>These matrices are made such that Ax = B. We can solve for x using linear algebra functions, which is the resulting affine matrix.</p>
+    <p>Now that we have the affine matrix, we have access to a transition matrix that will translate a point from a triangle to its corresponding position in its destination triangle.</p>
+    <p>Using skimage.draw.polygon we get access to the indices of all polygons within a triangle. We multiply the affine matrix by each pixel to find its destination.</p>
     <table>
         <tr>
             <td>
-                <img src="output/cameraman_magnitude.png" width="400" height="500">
-                <p>Magnitude</p>
+                <img src="references/mepicture.jpg" width="720" height="720">
+                <p>Me</p>
             </td>
             <td>
-                <img src="output/cameraman_binarized.png" width="500" height="500">
-                <p>Binarized</p>
+                <img src="references/bruce.jpg" width="720" height="720">
+                <p>Bruce Lee</p>
             </td>
         </tr>
     </table>
+    <img src="output/midway.jpg" width="720" height="720">
+    <p>Mid-Way Face</p>
     <h3>Derivative of Gaussian (DoG) Filter</h3>
     <p>Prior to the process above, we first apply a Gaussian blur to the image to smoothen the edges and get rid of artifacts and noise as a result of jagged edges</p>
     <img src="output/cameraman_blurred.png" width="500" height="500">
