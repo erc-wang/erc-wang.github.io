@@ -86,43 +86,35 @@
         <tr>
             <td>
                 <img src="output/population1.jpg" width="260" height="360">
-                <p>Me</p>
             </td>
             <td>
                 <img src="output/population2.jpg" width="260" height="360">
-                <p>Bruce Lee</p>
             </td>
             <td>
                 <img src="output/population3.jpg" width="260" height="360">
-                <p>Bruce Lee</p>
             </td>
         </tr>
         <tr>
             <td>
                 <img src="output/population4.jpg" width="260" height="360">
-                <p>Me</p>
             </td>
             <td>
                 <img src="output/population5.jpg" width="260" height="360">
-                <p>Bruce Lee</p>
             </td>
             <td>
                 <img src="output/population6.jpg" width="260" height="360">
-                <p>Bruce Lee</p>
             </td>
         </tr>
         <tr>
             <td>
                 <img src="output/population7.jpg" width="260" height="360">
-                <p>Me</p>
+
             </td>
             <td>
                 <img src="output/population8.jpg" width="260" height="360">
-                <p>Bruce Lee</p>
             </td>
             <td>
                 <img src="output/population9.jpg" width="260" height="360">
-                <p>Bruce Lee</p>
             </td>
         </tr>
     </table>
@@ -130,5 +122,43 @@
     <img src="output/mepopulation.jpg" width="260" height="360">
     <img src="output/populationme.jpg" width="260" height="360">
     <p>The results of this are a little janky most likely due to the distance between correspondence points. The face is more centered in the provided images and their hair is fully in view while the top of my head is slightly off of the screen leading to the vertical stretching in the warped image.</p>
+    <h3>Caricatures</h3>
+    <p>A caricature can be made by warping shape wise from a population mean, creating an exaggerated image. This can be done using a factor to determine how much weight would be in finding a midway shape, and a dissolve_frac would be used to determine distortion in the resulting image.</p>
+    <img src="output/caricature.jpg" width="260" height="360">
+    <h3>Bells and Whistles</h3>
+    <p>I looked up average images of the female gender on the internet and decided to take an image of the average Southeast Asian female.</p>
+    <p>Using the correspondence tool from the first part I found the correspondence points corresponding to myself and the Southeast Asian image.</p>
+    <p>To find the morphed shape we can use the morph function from earlier but set dissolve_frac to 0.</p>
+    <p>To find the morphed appearance we can use the morph function but set warp_frac to 0</p>
+    <p>To find the morphed image we do not set either of the factors to 0</p>
+    <table>
+        <tr>
+            <td>
+                <img src="references/mepicture_resized.jpg" width="260" height="360">
+                <p>Me</p>
+            </td>
+            <td>
+                <img src="references/southeastasian.jpg" width="260" height="360">
+                <p>Southeast Asian Female</p>
+            </td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <td>
+                <img src="output/morph_shape.jpg" width="260" height="360">
+                <p>Morphed Shape</p>
+            </td>
+            <td>
+                <img src="output/morph_appearance.jpg" width="260" height="360">
+                <p>Morphed Appearance</p>
+            </td>
+            <td>
+                <img src="output/morph_both.jpg" width="260" height="360">
+                <p>Morphed</p>
+            </td>
+        </tr>
+    </table>
+    <img src="output/gender.gif" width="260" height="360">
 </body>
 </html>
