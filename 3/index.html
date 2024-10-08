@@ -52,7 +52,7 @@
     <h3>Computing the "Mid-Way Face"</h3>
     <p>The midway shape was calculated by creating a balanced calculation of the points using a factor warp_frac. These new points can then be triangulated using the same process from the previous step.</p>
     <p>Warping the faces into these new positions requires the implementation of solving for an Affine Matrix.</p>
-    <p>For a given triangle, we can say that matrix contains a row of the triangle's x values, a row of the triangle's y values, and a row of ones concatenated at the bottom.</p>
+    <p>For a given triangle, we can say its matrix contains a row of the triangle's x values, a row of the triangle's y values, and a row of ones concatenated at the bottom.</p>
     <p>Matrix A and matrix B are created the same, corresponding to the original image's triangles, and the midway shape's triangles.</p>
     <p>These matrices are made such that Ax = B. We can solve for x using linear algebra functions, which is the resulting affine matrix.</p>
     <p>Now that we have the affine matrix, we have access to a transition matrix that will translate a point from a triangle to its corresponding position in its destination triangle.</p>
@@ -75,337 +75,56 @@
     <p>The previous section details how to find the intermediate image between two images. We can change warp_frac, the factor for determining the midway shape on a scale to get a gradual process which results in the morph sequence.</p>
     <p>For each midway image, we find the warped images from both perspectives and apply dissolve_frac to get a weighted proportion of the images' values.</p>
     <img src="output/morph.gif" width="720" height="720">
-    <h3>Derivative of Gaussian (DoG) Filter</h3>
-    <p>Prior to the process above, we first apply a Gaussian blur to the image to smoothen the edges and get rid of artifacts and noise as a result of jagged edges</p>
-    <img src="output/cameraman_blurred.png" width="500" height="500">
-    <p>Blurred</p>
+    <h3>The "Mean Face" of a Population</h3>
+    <p>The mean shape of a population is found by calculating the coordinates of each image's correspondence points. As the library's provided images do not have correspondence points in the corners, they are manually added so that the majority of the image is preserved.</p>
+    <p>After the mean shape is calculated, Each image is warped along with the mean shape, and the average values of all of the warped images determines the "mean face".</p>
+    <p>The FEI Face Database was used for this project, which supplied correspondence points for each image.</p>
+    <img src="output/population_mean.jpg" width="260" height="360">
+    <p>Mean Face</p>
+    <p>Some examples of images from the database warped into the "mean face"</p>
     <table>
         <tr>
             <td>
-                <img src="output/cameraman_blurred_dx.png" width="500" height="500">
-                <p>Dx</p>
+                <img src="output/population1.jpg" width="260" height="360">
+                <p>Me</p>
             </td>
             <td>
-                <img src="output/cameraman_blurred_dy.png" width="500" height="500">
-                <p>Dy</p>
+                <img src="output/population2.jpg" width="260" height="360">
+                <p>Bruce Lee</p>
+            </td>
+            <td>
+                <img src="output/population3.jpg" width="260" height="360">
+                <p>Bruce Lee</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="output/population4.jpg" width="260" height="360">
+                <p>Me</p>
+            </td>
+            <td>
+                <img src="output/population5.jpg" width="260" height="360">
+                <p>Bruce Lee</p>
+            </td>
+            <td>
+                <img src="output/population6.jpg" width="260" height="360">
+                <p>Bruce Lee</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="output/population7.jpg" width="260" height="360">
+                <p>Me</p>
+            </td>
+            <td>
+                <img src="output/population8.jpg" width="260" height="360">
+                <p>Bruce Lee</p>
+            </td>
+            <td>
+                <img src="output/population9.jpg" width="260" height="360">
+                <p>Bruce Lee</p>
             </td>
         </tr>
     </table>
-    <p>Finding magnitude and binarize is the same process as earlier</p>
-    <table>
-        <tr>
-            <td>
-                <img src="output/cameraman_blurred_magnitude.png" width="500" height="500">
-                <p>Magnitude</p>
-            </td>
-            <td>
-                <img src="output/cameraman_blurred_binarized.png" width="500" height="500">
-                <p>Binarized</p>
-            </td>
-        </tr>
-    </table>
-    <p>The results of the non blurred variant leads to choppier and straight lines while the blurred version is smoother all around</p>
-    <h3>Image Sharpening</h3>
-    <p>We can sharpen an image by heightening the prominence of the image's high frequencies. We can find the high frequencies by subtracting the blurred image from the original effectively getting rid of all of the image's low frequencies</p>
-    <table>
-        <tr>
-            <td>
-                <img src="output/taj_blurred.png" width="500" height="500">
-                <p>Blurred</p>
-            </td>
-            <td>
-                <img src="output/taj_high.png" width="500" height="500">
-                <p>High Frequencies</p>
-            </td>
-        </tr>
-    </table>
-    <table>
-        <tr>
-            <td>
-                <img src="pictures/taj.jpg" width="500" height="500">
-                <p>Original</p>
-            </td>
-            <td>
-                <img src="output/taj_sharpened.png" width="500" height="500">
-                <p>Sharpened</p>
-            </td>
-        </tr>
-    </table>
-    <p>I tried testing this function by initially blurring the image and inserting the blurred variant into the sharpener</p>
-    <table>
-        <tr>
-            <td>
-                <img src="output/taj_blurred.png" width="500" height="500">
-                <p>Blurred</p>
-            </td>
-            <td>
-                <img src="output/taj_unblurred.png" width="500" height="500">
-                <p>Sharpened</p>
-            </td>
-        </tr>
-    </table>
-    <p>While parts of it appear more clear, it is not entirely sharp. I believe that this is due to a loss of information as a result of blurring the image. The process of sharpening it would not be able to clear the blurred lines and would only be able to emphasize their colors</p>
-    <p>Another example of sharpening</p>
-    <table>
-        <tr>
-            <td>
-                <img src="pictures/Feldspar.jpg" width="1000" height="500">
-                <p>Original</p>
-            </td>
-            <td>
-                <img src="output/feldspar_sharp.png" width="1000" height="500">
-                <p>Sharpened</p>
-            </td>
-        </tr>
-    </table>
-    <h3>Hybrid Images</h3>
-    <p>A hybrid image is created by emphasizing one image as the lower frequencies and the other image as the higher frequencies</p>
-    <p>The process of isolating these frequencies is the same as outlined in the previous section</p>
-    <table>
-        <tr>
-            <td>
-                <img src="pictures/DerekPicture.jpg" width="549" height="768">
-                <p>Image 1</p>
-            </td>
-            <td>
-                <img src="pictures/nutmeg.jpg" width="750" height="500">
-                <p>Image 2</p>
-            </td>
-        </tr>
-    </table>
-    <p>Hybrid image</p>
-    <img src="output/derek_nutmeg_hybrid.png" width="900" height="750">
-    <h4>Ronald McDonald and Joker</h4>
-    <table>
-        <tr>
-            <td>
-                <img src="pictures/ronald.jpg" width="500" height="750">
-                <p>Image 1</p>
-            </td>
-            <td>
-                <img src="pictures/joker.jpg" width="1000" height="500">
-                <p>Image 2</p>
-            </td>
-        </tr>
-    </table>
-    <p>Hybrid image</p>
-    <img src="output/clown_hybrid.png" width="1300" height="1000">
-    <h4>Log Magnitude of Fourier Transform of Clowns</h4>
-    <table>
-        <tr>
-            <td>
-                <img src="output/clown_fourier_low_1.png" width="700" height="500">
-                <p>Low Frequency 1</p>
-            </td>
-            <td>
-                <img src="output/clown_fourier_low_2.png" width="700" height="500">
-                <p>Low Frequency 2</p>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <img src="output/clown_fourier_high.png" width="700" height="500">
-                <p>High Frequency</p>
-            </td>
-            <td>
-                <img src="output/cloud_fourier.png" width="700" height="500">
-                <p>Hybrid</p>
-            </td>
-        </tr>
-    </table>
-    <h4>Bob the Tomato and Annoying Orange (Failure)</h4>
-    <table>
-        <tr>
-            <td>
-                <img src="pictures/annoying_orange.jpg" width="700" height="500">
-                <p>Image 1</p>
-            </td>
-            <td>
-                <img src="pictures/tomato.jpg" width="600" height="500">
-                <p>Image 2</p>
-            </td>
-        </tr>
-    </table>
-    <p>Hybrid image</p>
-    <img src="output/orange_tomato_hybrid.png" width="1300" height="1000">
-    <p>I believe this is a result of the various empty spaces within each image. There are expansive areas of singular colors making the hybrid stand out less since there are less noisy areas. The alignment elements are also not the most connectable</p>
-    <h3>Gaussian and Laplacian Stacks</h3>
-    <p>In a Gaussian stack, we apply an increasingly higher sigma to the Gaussian kernel in order to blur the image further without subsampling</p>
-    <p>In a Laplacian stack, we subtract the following Gaussian stack level from the current level to find the changes between them<p>
-    <p>Gaussian & Laplacian stack of an apple: (4 Levels)</p>
-    <table>
-        <tr>
-            <td>
-                <img src="output/apple_gaussian_1.png" width="500" height="500">
-                <p>Gaussian</p>
-            </td>
-            <td>
-                <img src="output/apple_gaussian_2.png" width="500" height="500">
-            </td>
-            <td>
-                <img src="output/apple_gaussian_3.png" width="500" height="500">
-            </td>
-            <td>
-                <img src="output/apple_gaussian_4.png" width="500" height="500">
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <img src="output/apple_laplacian_1.png" width="500" height="500">
-                <p>Laplacian</p>
-            </td>
-            <td>
-                <img src="output/apple_laplacian_2.png" width="500" height="500">
-            </td>
-            <td>
-                <img src="output/apple_laplacian_3.png" width="500" height="500">
-            </td>
-            <td>
-                <img src="output/apple_laplacian_4.png" width="500" height="500">
-            </td>
-        </tr>
-    </table>
-    <h3>Multiresolution Blending</h3>
-    <table>
-        <tr>
-            <td>
-                <img src="pictures/apple.jpeg" width="500" height="500">
-            </td>
-            <td>
-                <img src="pictures/orange.jpeg" width="500" height="500">
-            </td>
-        </tr>
-    </table>
-    <p>In order to blend images together seemingly seamlessly, we need to introduce a mask that will cover the area that will be blended from one picture into the other. By blurring all of the images and applying the Gaussian and Laplacian stacks we edges will appear smoother and make the blending less abrupt</p>
-    <p>We introduce the mask for the oraple</p>
-    <img src="pictures/oraple_mask.png" width="500" height="500">
-    <p>The blending process follows:</p>
-    <table>
-        <tr>
-            <td>
-                <img src="output/oraple_blend_1.png" width="500" height="500">
-            </td>
-            <td>
-                <img src="output/oraple_blend_2.png" width="500" height="500">
-            </td>
-            <td>
-                <img src="output/oraple_blend_3.png" width="500" height="500">
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <img src="output/oraple_blend_4.png" width="500" height="500">
-            </td>
-            <td>
-                <img src="output/oraple_blend_5.png" width="500" height="500">
-            </td>
-            <td>
-                <img src="output/oraple_blend_6.png" width="500" height="500">
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <img src="output/oraple_blend_7.png" width="500" height="500">
-            </td>
-            <td>
-                <img src="output/oraple_blend_8.png" width="500" height="500">
-            </td>
-            <td>
-                <img src="output/oraple_blend_9.png" width="500" height="500">
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <img src="output/oraple_blend_10.png" width="500" height="500">
-            </td>
-            <td>
-                <img src="output/oraple_blend_11.png" width="500" height="500">
-            </td>
-            <td>
-                <img src="output/oraple_blend_12.png" width="500" height="500">
-            </td>
-        </tr>
-    </table>
-    <h4>Sunflower Dog</h4>
-    <p>This blending process also works with irregular masks (nonlinear) following the same logic</p>
-    <table>
-        <tr>
-            <td>
-                <img src="pictures/dog.jpg" width="500" height="500">
-            </td>
-            <td>
-                <img src="pictures/sunflower.jpg" width="500" height="500">
-            </td>
-            <td>
-                <img src="pictures/dogmask.jpg" width="500" height="500">
-                <p>Mask</p>
-            </td>
-        </tr>
-    </table>
-    <p>Blending process:</p>
-    <table>
-        <tr>
-            <td>
-                <img src="output/dog_sunflower_blend_1.png" width="500" height="500">
-            </td>
-            <td>
-                <img src="output/dog_sunflower_blend_2.png" width="500" height="500">
-            </td>
-            <td>
-                <img src="output/dog_sunflower_blend_3.png" width="500" height="500">
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <img src="output/dog_sunflower_blend_4.png" width="500" height="500">
-            </td>
-            <td>
-                <img src="output/dog_sunflower_blend_5.png" width="500" height="500">
-            </td>
-            <td>
-                <img src="output/dog_sunflower_blend_6.png" width="500" height="500">
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <img src="output/dog_sunflower_blend_7.png" width="500" height="500">
-            </td>
-            <td>
-                <img src="output/dog_sunflower_blend_8.png" width="500" height="500">
-            </td>
-            <td>
-                <img src="output/dog_sunflower_blend_9.png" width="500" height="500">
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <img src="output/dog_sunflower_blend_10.png" width="500" height="500">
-            </td>
-            <td>
-                <img src="output/dog_sunflower_blend_11.png" width="500" height="500">
-            </td>
-            <td>
-                <img src="output/dog_sunflower_blend_12.png" width="500" height="500">
-            </td>
-        </tr>
-    </table>
-    <p>The oraple example works especially well since the background of the original images are mostly similar making the blending seem more regular. Forcing distinctly difference backgrounds or images may seem increasingly more difficult</p>
-    <h4>My friend Edwin and Gojo cat</h4>
-    <table>
-        <tr>
-            <td>
-                <img src="pictures/edwin.jpg" width="500" height="500">
-            </td>
-            <td>
-                <img src="pictures/gojo.jpg" width="500" height="500">
-            </td>
-            <td>
-                <img src="pictures/edwinmask1.jpg" width="500" height="500">
-                <p>Mask</p>
-            </td>
-        </tr>
-    </table>
-    <p>Result:</p>
-    <img src="output/edwin_blend_12.png" width="500" height="500">
 </body>
 </html>
