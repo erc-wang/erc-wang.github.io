@@ -36,6 +36,18 @@
     <p>The images are selected and taken intentionally so that some elements overlap from picture to picture</p>
     <h3>Recover Homographies</h3>
     <p>Using the same correspondence tool provided by the spec of project 3. I labeled corresponding points from a pair of images using their clicking tool.</p>
+    <table>
+        <tr>
+            <td>
+                <img src="output/corr1.png" width="1000" height="600">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="output/corr1.png" width="1000" height="600">
+            </td>
+        </tr>
+    </table>
     <p>The calculation for the homography matrix, is effectively solving b = HA for H.</p>
     <p>In this equation, b is the resulting point locations, A is the initial source image point locations, and H is the homography matrix, a 3x3 transforming matrix</p>
     <p>Matrices A and b are required to be homogenous matrices, where each column must end with a 1 following the x and y coordinates of a point. As a result of this, when using the homography matrix we must divide all entries by their final column entry.</p>
@@ -52,7 +64,7 @@
                 <img src="images/macbook.jpg" width="800" height="600">
             </td>
             <td>
-                <img src="output/rectify1.jpg" width="800" height="600">
+                <img src="output/rectify1.png" width="800" height="600">
             </td>
         </tr>
         <tr>
@@ -60,7 +72,7 @@
                 <img src="images/book.jpg" width="600" height="800">
             </td>
             <td>
-                <img src="output/rectify2.jpg" width="800" height="800">
+                <img src="output/rectify2.png" width="800" height="800">
             </td>
         </tr>
     </table>
@@ -70,12 +82,12 @@
     <table>
         <tr>
             <td>
-                <img src="output/mosaic1.jpg" width="1500" height="600">
+                <img src="output/mosaic1.png" width="1500" height="600">
             </td>
         </tr>
         <tr>
             <td>
-                <img src="output/mosaic2.jpg" width="1500" height="600">
+                <img src="output/mosaic2.png" width="1500" height="600">
             </td>
         </tr>
     </table>
