@@ -18,69 +18,52 @@
     <table>
         <tr>
             <td>
-                <img src="images/image4_resized.jpg" width="1600" height="1200">
+                <img src="images/image4_resized.jpg" width="800" height="600">
             </td>
             <td>
-                <img src="images/image2_resized.jpg" width="1600" height="1200">
+                <img src="images/image2_resized.jpg" width="800" height="600">
             </td>
         </tr>
         <tr>
             <td>
-                <img src="images/upward1.jpg" width="1920" height="1080">
+                <img src="images/upward1.jpg" width="960" height="540">
             </td>
             <td>
-                <img src="images/upward1.jpg" width="1920" height="1080">
+                <img src="images/upward1.jpg" width="960" height="540">
             </td>
         </tr>
     </table>
-    <p>Using the provided correspondence tool linked on the project spec, we are able to acquire the points from each image that correspond to the respective location on the other image.</p>
+    <p>The images are selected and taken intentionally so that some elements overlap from picture to picture</p>
+    <h3>Recover Homographies</h3>
+    <p>Using the same correspondence tool provided by the spec of project 3. I labeled corresponding points from a pair of images using their clicking tool.</p>
+    <p>The calculation for the homography matrix, is effectively solving b = HA for H.</p>
+    <p>In this equation, b is the resulting point locations, A is the initial source image point locations, and H is the homography matrix, a 3x3 transforming matrix</p>
+    <p>Matrices A and b are required to be homogenous matrices, where each column must end with a 1 following the x and y coordinates of a point. As a result of this, when using the homography matrix we must divide all entries by their final column entry.</p>
+    <p>We can find this homography matrix by using least squares</p>
+    <h3>Warp the Images / Image Rectification</h3>
+    <p>Using the homography matrix calculated in the previous part, we can essentially warp any coordinates from the original image to its corresponding warped version (placing the point to its position within the perspective of the base image)</p>
+    <p>We can take the initial corners of the original image and warp them to get the boundaries of the resulting warped image. From here we can following a similar process used in project 3 by using skimage.draw.polygon to get all of the points within the new boundaries</p>
+    <p>We can then interpolate the points from the initial image to its corresponding position in the warped image bounds</p>
+    <p>My warpImage function still has some issues on determining the new boundaries and as a result, some of the images later may not follow the correct dimensions</p>
+    <p>This process of warping can be used to rectify photos by placing them within the perspective of another image. By manually selecting 4 corner points we can take a slanted object and return it to a rectangular position.</p>
     <table>
         <tr>
             <td>
-                <img src="output/mepoints.jpg" width="900" height="720">
+                <img src="images/macbook.jpg" width="260" height="360">
             </td>
             <td>
-                <img src="output/brucepoints.jpg" width="900" height="720">
+                <img src="output/rectify1.jpg" width="260" height="360">
             </td>
         </tr>
-    </table>
-    <p>From there, we can use Delaunay from the scipy library to triangulate the correspondence points. Using triplot we overlay the triangles on top of the images as such:</p>
-    <table>
         <tr>
             <td>
-                <img src="output/metriangles.jpg" width="900" height="720">
+                <img src="images/book.jpg" width="260" height="360">
             </td>
             <td>
-                <img src="output/brucetriangles.jpg" width="900" height="720">
+                <img src="output/rectify2.jpg" width="260" height="360">
             </td>
         </tr>
     </table>
-    <h3>Computing the "Mid-Way Face"</h3>
-    <p>The midway shape was calculated by creating a balanced calculation of the points using a factor warp_frac. These new points can then be triangulated using the same process from the previous step.</p>
-    <p>Warping the faces into these new positions requires the implementation of solving for an Affine Matrix.</p>
-    <p>For a given triangle, we can say its matrix contains a row of the triangle's x values, a row of the triangle's y values, and a row of ones concatenated at the bottom.</p>
-    <p>Matrix A and matrix B are created the same, corresponding to the original image's triangles, and the midway shape's triangles.</p>
-    <p>These matrices are made such that Ax = B. We can solve for x using linear algebra functions, which is the resulting affine matrix.</p>
-    <p>Now that we have the affine matrix, we have access to a transition matrix that will translate a point from a triangle to its corresponding position in its destination triangle.</p>
-    <p>Using skimage.draw.polygon we get access to the indices of all polygons within a triangle. We multiply the affine matrix by each pixel to find its destination.</p>
-    <table>
-        <tr>
-            <td>
-                <img src="references/mepicture.jpg" width="720" height="720">
-                <p>Me</p>
-            </td>
-            <td>
-                <img src="references/bruce.jpg" width="720" height="720">
-                <p>Bruce Lee</p>
-            </td>
-        </tr>
-    </table>
-    <img src="output/midway.jpg" width="720" height="720">
-    <p>Mid-Way Face</p>
-    <h3>The Morph Sequence</h3>
-    <p>The previous section details how to find the intermediate image between two images. We can change warp_frac, the factor for determining the midway shape on a scale to get a gradual process which results in the morph sequence.</p>
-    <p>For each midway image, we find the warped images from both perspectives and apply dissolve_frac to get a weighted proportion of the images' values.</p>
-    <img src="output/morph.gif" width="720" height="720">
     <h3>The "Mean Face" of a Population</h3>
     <p>The mean shape of a population is found by calculating the coordinates of each image's correspondence points. As the library's provided images do not have correspondence points in the corners, they are manually added so that the majority of the image is preserved.</p>
     <p>After the mean shape is calculated, Each image is warped along with the mean shape, and the average values of all of the warped images determines the "mean face".</p>
