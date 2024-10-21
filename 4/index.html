@@ -1,1 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Portfolio</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Project 4: [Auto]Stitching Photo Mosaics</h1>
+    <h3>About</h3>
+    <p>This project is split into two parts with the first one covering how to warp an image, and mosaicing, effectively allowing someone to stitch images together based on correspondence points</p>
+    <h3>Shoot and Digitize Pictures</h3>
+    <p>I took some pictures of the outdoors on a trip, but for the next part I will definitely take a few more especially ones of the indoors</p>
+    <table>
+        <tr>
+            <td>
+                <img src="images/image4_resized.jpg" width="1600" height="1200">
+            </td>
+            <td>
+                <img src="images/image2_resized.jpg" width="1600" height="1200">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="images/upward1.jpg" width="1920" height="1080">
+            </td>
+            <td>
+                <img src="images/upward1.jpg" width="1920" height="1080">
+            </td>
+        </tr>
+    </table>
+    <p>Using the provided correspondence tool linked on the project spec, we are able to acquire the points from each image that correspond to the respective location on the other image.</p>
+    <table>
+        <tr>
+            <td>
+                <img src="output/mepoints.jpg" width="900" height="720">
+            </td>
+            <td>
+                <img src="output/brucepoints.jpg" width="900" height="720">
+            </td>
+        </tr>
+    </table>
+    <p>From there, we can use Delaunay from the scipy library to triangulate the correspondence points. Using triplot we overlay the triangles on top of the images as such:</p>
+    <table>
+        <tr>
+            <td>
+                <img src="output/metriangles.jpg" width="900" height="720">
+            </td>
+            <td>
+                <img src="output/brucetriangles.jpg" width="900" height="720">
+            </td>
+        </tr>
+    </table>
+    <h3>Computing the "Mid-Way Face"</h3>
+    <p>The midway shape was calculated by creating a balanced calculation of the points using a factor warp_frac. These new points can then be triangulated using the same process from the previous step.</p>
+    <p>Warping the faces into these new positions requires the implementation of solving for an Affine Matrix.</p>
+    <p>For a given triangle, we can say its matrix contains a row of the triangle's x values, a row of the triangle's y values, and a row of ones concatenated at the bottom.</p>
+    <p>Matrix A and matrix B are created the same, corresponding to the original image's triangles, and the midway shape's triangles.</p>
+    <p>These matrices are made such that Ax = B. We can solve for x using linear algebra functions, which is the resulting affine matrix.</p>
+    <p>Now that we have the affine matrix, we have access to a transition matrix that will translate a point from a triangle to its corresponding position in its destination triangle.</p>
+    <p>Using skimage.draw.polygon we get access to the indices of all polygons within a triangle. We multiply the affine matrix by each pixel to find its destination.</p>
+    <table>
+        <tr>
+            <td>
+                <img src="references/mepicture.jpg" width="720" height="720">
+                <p>Me</p>
+            </td>
+            <td>
+                <img src="references/bruce.jpg" width="720" height="720">
+                <p>Bruce Lee</p>
+            </td>
+        </tr>
+    </table>
+    <img src="output/midway.jpg" width="720" height="720">
+    <p>Mid-Way Face</p>
+    <h3>The Morph Sequence</h3>
+    <p>The previous section details how to find the intermediate image between two images. We can change warp_frac, the factor for determining the midway shape on a scale to get a gradual process which results in the morph sequence.</p>
+    <p>For each midway image, we find the warped images from both perspectives and apply dissolve_frac to get a weighted proportion of the images' values.</p>
+    <img src="output/morph.gif" width="720" height="720">
+    <h3>The "Mean Face" of a Population</h3>
+    <p>The mean shape of a population is found by calculating the coordinates of each image's correspondence points. As the library's provided images do not have correspondence points in the corners, they are manually added so that the majority of the image is preserved.</p>
+    <p>After the mean shape is calculated, Each image is warped along with the mean shape, and the average values of all of the warped images determines the "mean face".</p>
+    <p>The FEI Face Database was used for this project, which supplied correspondence points for each image.</p>
+    <img src="output/population_mean.jpg" width="260" height="360">
+    <p>Mean Face</p>
+    <p>Some examples of images from the database warped into the "mean face"</p>
+    <table>
+        <tr>
+            <td>
+                <img src="output/population1.jpg" width="260" height="360">
+            </td>
+            <td>
+                <img src="output/population2.jpg" width="260" height="360">
+            </td>
+            <td>
+                <img src="output/population3.jpg" width="260" height="360">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="output/population4.jpg" width="260" height="360">
+            </td>
+            <td>
+                <img src="output/population5.jpg" width="260" height="360">
+            </td>
+            <td>
+                <img src="output/population6.jpg" width="260" height="360">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="output/population7.jpg" width="260" height="360">
 
+            </td>
+            <td>
+                <img src="output/population8.jpg" width="260" height="360">
+            </td>
+            <td>
+                <img src="output/population9.jpg" width="260" height="360">
+            </td>
+        </tr>
+    </table>
+    <p>Myself warped into the mean face and vice-versa</p>
+    <img src="output/mepopulation.jpg" width="260" height="360">
+    <img src="output/populationme.jpg" width="260" height="360">
+    <p>The results of this are a little janky most likely due to the distance between correspondence points. The face is more centered in the provided images and their hair is fully in view while the top of my head is slightly off of the screen leading to the vertical stretching in the warped image.</p>
+    <h3>Caricatures</h3>
+    <p>A caricature can be made by warping shape wise from a population mean, creating an exaggerated image. This can be done using a factor to determine how much weight would be in finding a midway shape, and a dissolve_frac would be used to determine distortion in the resulting image.</p>
+    <img src="output/caricature.jpg" width="260" height="360">
+    <h3>Bells and Whistles</h3>
+    <p>I looked up average images of the female gender on the internet and decided to take an image of the average Southeast Asian female.</p>
+    <p>Using the correspondence tool from the first part I found the correspondence points corresponding to myself and the Southeast Asian image.</p>
+    <p>To find the morphed shape we can use the morph function from earlier but set dissolve_frac to 0.</p>
+    <p>To find the morphed appearance we can use the morph function but set warp_frac to 0</p>
+    <p>To find the morphed image we do not set either of the factors to 0</p>
+    <table>
+        <tr>
+            <td>
+                <img src="references/mepicture_resized.jpg" width="260" height="360">
+                <p>Me</p>
+            </td>
+            <td>
+                <img src="references/southeastasian.jpg" width="260" height="360">
+                <p>Southeast Asian Female</p>
+            </td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <td>
+                <img src="output/morph_shape.jpg" width="260" height="360">
+                <p>Morphed Shape</p>
+            </td>
+            <td>
+                <img src="output/morph_appearance.jpg" width="260" height="360">
+                <p>Morphed Appearance</p>
+            </td>
+            <td>
+                <img src="output/morph_both.jpg" width="260" height="360">
+                <p>Morphed</p>
+            </td>
+        </tr>
+    </table>
+    <img src="output/gender.gif" width="260" height="360">
+</body>
+</html>
