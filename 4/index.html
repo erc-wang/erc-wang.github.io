@@ -14,22 +14,30 @@
     <h3>About</h3>
     <p>This project is split into two parts with the first one covering how to warp an image, and mosaicing, effectively allowing someone to stitch images together based on correspondence points</p>
     <h3>Shoot and Digitize Pictures</h3>
-    <p>I took some pictures of the outdoors on a trip, but for the next part I will definitely take a few more especially ones of the indoors</p>
+    <p>I took pictures both indoors and outdoors to get more coverage. I wondered if the difference in lighting within sunlight would cause issues within the stitching</p>
     <table>
         <tr>
             <td>
-                <img src="images/image4_resized.jpg" width="800" height="600">
+                <img src="images/couch1.jpg" width="600" height="450">
             </td>
             <td>
-                <img src="images/image2_resized.jpg" width="800" height="600">
+                <img src="images/couch2.jpg" width="600" height="450">
             </td>
         </tr>
         <tr>
             <td>
-                <img src="images/upward1.jpg" width="960" height="540">
+                <img src="images/image4_resized.jpg" width="600" height="450">
             </td>
             <td>
-                <img src="images/upward1.jpg" width="960" height="540">
+                <img src="images/image2_resized.jpg" width="600" height="450">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="images/image4_resized.jpg" width="600" height="450">
+            </td>
+            <td>
+                <img src="images/image2_resized.jpg" width="600" height="450">
             </td>
         </tr>
     </table>
@@ -39,12 +47,12 @@
     <table>
         <tr>
             <td>
-                <img src="output/corr1.png" width="1000" height="600">
+                <img src="output/couch1_points1.png" width="800" height="600">
             </td>
         </tr>
         <tr>
             <td>
-                <img src="output/corr1.png" width="1000" height="600">
+                <img src="output/couch1_points1.png" width="800" height="600">
             </td>
         </tr>
     </table>
@@ -54,17 +62,16 @@
     <p>We can find this homography matrix by using least squares</p>
     <h3>Warp the Images / Image Rectification</h3>
     <p>Using the homography matrix calculated in the previous part, we can essentially warp any coordinates from the original image to its corresponding warped version (placing the point to its position within the perspective of the base image)</p>
-    <p>We can take the initial corners of the original image and warp them to get the boundaries of the resulting warped image. From here we can following a similar process used in project 3 by using skimage.draw.polygon to get all of the points within the new boundaries</p>
-    <p>We can then interpolate the points from the initial image to its corresponding position in the warped image bounds</p>
-    <p>My warpImage function still has some issues on determining the new boundaries and as a result, some of the images later may not follow the correct dimensions</p>
+    <p>We calculate the warped corners by using the homography matrix on the bounds of the original image and offsetting them so that the warped image bounds are within the visible range.</p>
+    <p>A meshgrid is used to get the output pixel locations, I had trouble using the same approach in the previous project using skimage.draw.polygon, and this proved to be more accurate when using the interpolator.</p>
     <p>This process of warping can be used to rectify photos by placing them within the perspective of another image. By manually selecting 4 corner points we can take a slanted object and return it to a rectangular position.</p>
     <table>
         <tr>
             <td>
-                <img src="images/macbook.jpg" width="800" height="600">
+                <img src="images/macbook.jpg" width="600" height="450">
             </td>
             <td>
-                <img src="output/rectify1.png" width="800" height="600">
+                <img src="output/macbook_rectify.png" width="800" height="600">
             </td>
         </tr>
         <tr>
