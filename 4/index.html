@@ -47,12 +47,12 @@
     <table>
         <tr>
             <td>
-                <img src="output/couch1_points1.png" width="800" height="600">
+                <img src="output/couch1_points1.jpg" width="800" height="600">
             </td>
         </tr>
         <tr>
             <td>
-                <img src="output/couch1_points1.png" width="800" height="600">
+                <img src="output/couch1_points1.jpg" width="800" height="600">
             </td>
         </tr>
     </table>
@@ -71,7 +71,7 @@
                 <img src="images/macbook.jpg" width="600" height="450">
             </td>
             <td>
-                <img src="output/macbook_rectify.png" width="800" height="600">
+                <img src="output/macbook_rectify.jpg" width="800" height="600">
             </td>
         </tr>
         <tr>
@@ -79,7 +79,7 @@
                 <img src="images/book.jpg" width="450" height="600">
             </td>
             <td>
-                <img src="output/book_rectify.png" width="800" height="800">
+                <img src="output/book_rectify.jpg" width="800" height="800">
             </td>
         </tr>
     </table>
@@ -131,6 +131,41 @@
     <img src="output/landscape_mosaic.jpg" width="1200" height="800">
     <p>The last example has noticeable tearing or misalignment. I included this result as I did not take the pictures well and I moved in between them so the images would not align. I was curious to see how the output would look.</p>
     <p>It accurately aligns some of the correspondence points (namely the clouds and a building in between both images), but it fails to align the grass and the sidewalk well at all.</p>
-    <p>The other two mosaics on the other hand came out very well.</p>
+    <p>The other two mosaics on the other hand came out very well (There are some interesting artifacts with color in the couch example, but it does not appear in the notebook).</p>
+    <h3>Detecting Corners</h3>
+    <p>We use the provided Harris corner detection algorithm to automatically detect corners within an image. </p>
+    </table>
+        <tr>
+            <td>
+                <img src="images/couch1_harris.jpg" width="600" height="450">
+            </td>
+            <td>
+                <img src="images/couch2_harris.jpg" width="600" height="450">
+            </td>
+        </tr>
+    <p>Using the function by itself leads to a lot of points being marked, with many not being super helpful. We can use additional algorithms to trim these points down to find points that more accurately represent correspondence points between the images, as well as indicative features</p>
+    <p>By using Adaptive Non-Maximal Suppression (ANMS), we can do this process. This algorithm spaces out the points by using nearest neighbors between point distances using the provided dist2 function. The distance between points follow a threshold inequality to find their associated minimum radius between points which can then be sorted</p>
+    </table>
+        <tr>
+            <td>
+                <img src="images/couch1_anms.jpg" width="600" height="450">
+            </td>
+            <td>
+                <img src="images/couch2_anms.jpg" width="600" height="450">
+            </td>
+        </tr>
+    <h3>Feature Descriptors and Feature Matching</h3>
+    <p>Every point marked from ANMS is given a 40x40 pixel area around it, labeled as a feature. These areas are then normalized and resized to 8x8. The downsampling allows calculations to be much quicker, even at the cost of accuracy.</p>
+    <p>These features can then be matched by summing over their squared differences and using nearest-neighbor distance errors. We can calculate the Lowe score for every feature within the descriptors and compare with a feature from the other image. If the score is lower than a certain threshold, then we consider it to be a matched feature</p>
+    </table>
+        <tr>
+            <td>
+                <img src="images/couch1_matches.jpg" width="600" height="450">
+            </td>
+            <td>
+                <img src="images/couch2_matches.jpg" width="600" height="450">
+            </td>
+        </tr>
+    <h3></h3>
 </body>
 </html>
