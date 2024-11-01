@@ -76,27 +76,29 @@
         </tr>
         <tr>
             <td>
-                <img src="images/book.jpg" width="600" height="800">
+                <img src="images/book.jpg" width="450" height="600">
             </td>
             <td>
-                <img src="output/rectify2.png" width="800" height="800">
+                <img src="output/book_rectify.png" width="800" height="800">
             </td>
         </tr>
     </table>
     <h3>Blending Images into a Mosaic</h3>
     <p>Using the previous steps, we can combine images into a singular image called a mosaic (similar to a panorama). This can be done by calculating the size of the resulting image by finding the maximum resolutions of the warped images and adding their offsets based on how much their correspondence points become altered between warps</p>
-    <p>To blend the images, I used a Laplacian pyramid for the blending scheme, however it caused some artifacts to appear along the edges of the mask created. I read on ed that some people were able to solve this issue using bwdist, however this is not a function in Python and I was not able to find a working altenative</p>
+    <p>We can calculate the shape of the combined image by comparing the bounds of the original images and their warped counterparts. By using their center coordinates we can accurately position the images within the canvas.</p>
+    <p>A slightly modified version of the Gaussian/Laplacian pyramid blending is used, where it is the Gaussian blur is used and we are able to compare high frequencies and low frequencies where the images overlap and we take a weighted average of these values.</p>
+    <p>When I attempted to use the Laplacian pyramid method for blending, I was met with black artifact lines where the images began overlapping. This method proved to be much more effective.</p>
+    <p>This blending method is on the elementary side as it assumes that the stitched image will be extending out to the right. It would not work the same if it were a stitch to the left.</p>
     <table>
         <tr>
             <td>
-                <img src="output/mosaic1.png" width="1500" height="600">
+                <img src="images/couch1.jpg" width="600" height="450">
             </td>
-        </tr>
-        <tr>
             <td>
-                <img src="output/mosaic2.png" width="1500" height="600">
+                <img src="images/couch2.jpg" width="600" height="450">
             </td>
         </tr>
     </table>
+    <img src="output/couch_mosaic.jpg" width="1200" height="800">
 </body>
 </html>
