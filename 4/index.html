@@ -103,31 +103,24 @@
     <table>
         <tr>
             <td>
-                <img src="images/couch1.jpg" width="600" height="450">
+                <img src="output/units1.jpg" width="600" height="450">
             </td>
             <td>
-                <img src="images/couch2.jpg" width="600" height="450">
+                <img src="output/units2.jpg" width="600" height="450">
             </td>
         </tr>
     </table>
-        <tr>
-            <td>
-                <img src="images/units1.jpg" width="600" height="450">
-            </td>
-            <td>
-                <img src="images/units2.jpg" width="600" height="450">
-            </td>
-        </tr>
     <img src="output/units_mosaic.jpg" width="1200" height="800">
-    </table>
+    <table>
         <tr>
             <td>
-                <img src="images/im2_resized.jpg" width="600" height="450">
+                <img src="output/im2_resized.jpg" width="600" height="450">
             </td>
             <td>
-                <img src="images/im4_resized.jpg" width="600" height="450">
+                <img src="output/im4_resized.jpg" width="600" height="450">
             </td>
         </tr>
+    </table> 
     <img src="output/landscape_mosaic.jpg" width="1200" height="800">
     <p>The last example has noticeable tearing or misalignment. I included this result as I did not take the pictures well and I moved in between them so the images would not align. I was curious to see how the output would look.</p>
     <p>It accurately aligns some of the correspondence points (namely the clouds and a building in between both images), but it fails to align the grass and the sidewalk well at all.</p>
@@ -137,35 +130,84 @@
     </table>
         <tr>
             <td>
-                <img src="images/couch1_harris.jpg" width="600" height="450">
+                <img src="output/couch1_harris.jpg" width="600" height="450">
             </td>
             <td>
-                <img src="images/couch2_harris.jpg" width="600" height="450">
+                <img src="output/couch2_harris.jpg" width="600" height="450">
             </td>
         </tr>
     <p>Using the function by itself leads to a lot of points being marked, with many not being super helpful. We can use additional algorithms to trim these points down to find points that more accurately represent correspondence points between the images, as well as indicative features</p>
     <p>By using Adaptive Non-Maximal Suppression (ANMS), we can do this process. This algorithm spaces out the points by using nearest neighbors between point distances using the provided dist2 function. The distance between points follow a threshold inequality to find their associated minimum radius between points which can then be sorted</p>
-    </table>
+    <table>
         <tr>
             <td>
-                <img src="images/couch1_anms.jpg" width="600" height="450">
+                <img src="output/couch1_anms.jpg" width="600" height="450">
             </td>
             <td>
-                <img src="images/couch2_anms.jpg" width="600" height="450">
+                <img src="output/couch2_anms.jpg" width="600" height="450">
             </td>
         </tr>
+    </table>
     <h3>Feature Descriptors and Feature Matching</h3>
     <p>Every point marked from ANMS is given a 40x40 pixel area around it, labeled as a feature. These areas are then normalized and resized to 8x8. The downsampling allows calculations to be much quicker, even at the cost of accuracy.</p>
     <p>These features can then be matched by summing over their squared differences and using nearest-neighbor distance errors. We can calculate the Lowe score for every feature within the descriptors and compare with a feature from the other image. If the score is lower than a certain threshold, then we consider it to be a matched feature</p>
-    </table>
+    <table>
         <tr>
             <td>
-                <img src="images/couch1_matches.jpg" width="600" height="450">
+                <img src="output/couch1_matches.jpg" width="600" height="450">
             </td>
             <td>
-                <img src="images/couch2_matches.jpg" width="600" height="450">
+                <img src="output/couch2_matches.jpg" width="600" height="450">
             </td>
         </tr>
-    <h3></h3>
+    </table>
+    <h3>RANSAC</h3>
+    <p>In the RANSAC algorithm, 4 points are sampled randomly from both the inserted initial points, and the destination points. Their homography is then calculated and we can calculate the warped location of the pixel.</p>
+    <p>We take the distance between the points and compare it to a threshold to determine if it is an inlier or not. Based on the number of points that follow this inequality, we compare it to the previous largest number of points that followed the threshold, and if it exceeds it, we update the set of points</p>
+    <table>
+        <tr>
+            <td>
+                <img src="output/couch1_ransac.jpg" width="600" height="450">
+            </td>
+            <td>
+                <img src="output/couch2_ransac.jpg" width="600" height="450">
+            </td>
+        </tr>
+    </table>
+    <h3>[Auto]Stitching</h3>
+    <p>Using the steps above from Harris Corners and further, we can create an auto stitching function that follows the sequence of harris corner detection, ANMS, feature descriptors, feature matching, RANSAC, and then using our original blending function taking in the output of RANSAC</p>
+    <p>This process essentially auto stitches an image together since we do not have to manually select correspondence points, and the feature selection does it for us.</p>
+    <table>
+        <tr>
+            <td>
+                <img src="output/couch_mosaic.jpg" width="1200" height="800">
+            </td>
+            <td>
+                <img src="output/couch_ransac.jpg" width="1200" height="800">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="output/units_mosaic.jpg" width="1200" height="800">
+            </td>
+            <td>
+                <img src="output/units_ransac.jpg" width="1200" height="800">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="output/landscape_mosaic.jpg" width="1200" height="800">
+            </td>
+            <td>
+                <img src="output/landscape_ransac.jpg" width="1200" height="800">
+            </td>
+        </tr>
+    </table>
+    <p>The manual mosaics are on the left, and the auto mosaics are on the right</p>
+    <p>The first 2 appears extremely comparable among both methods</p>
+    <p>The last mosaic is immensely better in the auto version, I do not have a clear reason as to why but my assumption is that the auto algorithm manages to pick many more correspondence points for the warping (i.e. individual trees), which allows is to look more accurate, as when I manually selected points, I only selected around 10</p>
+    <h3>Takeaways</h3>
+    <p>Although tedious, reading through the provided paper “Multi-Image Matching using Multi-Scale Oriented Patches” provided a lot of insight on how a computer manages to perceive digital images. The previous projects were mostly processes that were debatably manual, where the this project allowed me to explore methods and algorithms that can automate processes.</p>
+    <p>The sequence of ANMS -> Feature Descriptors -> Feature Matching was definitely the coolest thing that I learned and experienced this project.</p>
 </body>
 </html>
