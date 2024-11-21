@@ -88,6 +88,7 @@
       </tr>
     </table>
     <p>It is worth mentioning that every image has been upscaled to 256x256 when every stage 1 output is actually 64x64. For later parts of this project, all outputs will be originally 64x64.</p>
+    <p>The outputs to seem to heavily reflect the prompt that was inserted into the model. Stage 2 takes significantly longer to run as the images are exponentially larger in size.</p>
     <p>When num_inference_steps increases, the edges become more defined and the finer details can be made out. When num_inference_steps is lower, there is largely more visible amount of blurring.</p>
     <h3>Sampling Loops</h3>
     <p>In a diffusion model, we can start with a clean image and progressively add noise over time until it becomes pure noise. The model reverses this process by predicting and removing the noise, gradually denoising the image. </p> 
@@ -116,6 +117,125 @@
         </td>
       </tr>
     </table>
-    
+    <h3>Classical Denoising</h3>
+    <p>A strategy we can employ to denoise an image is to use Gaussian blur filtering. To do this we simply take the image and insert it into the built in torch gaussian_blur function which will essentially smoothen out the noise.</p>
+    <p>This method will prove to be not super accurate, as it is bound to lose information and has no real way of making it up.</p>
+    <table>
+      <tr>
+        <td>
+          <img src="output/A/11a.png" width="256" height="256">
+          <p>Noisy Campanile at t=250</p>
+        </td>
+        <td>
+          <img src="output/A/11b.png" width="256" height="256">
+          <p>Noisy Campanile at t=500</p>
+        </td>
+        <td>
+          <img src="output/A/11c.png" width="256" height="256">
+          <p>Noisy Campanile at t=750</p>
+        </td>
+      </tr>
+    </table>
+    <table>
+      <tr>
+        <td>
+          <img src="output/A/12a.png" width="256" height="256">
+          <p>Gaussian Denoise at t=250</p>
+        </td>
+        <td>
+          <img src="output/A/12b.png" width="256" height="256">
+          <p>Gaussian Denoise at t=500</p>
+        </td>
+        <td>
+          <img src="output/A/12c.png" width="256" height="256">
+          <p>Gaussian Denoise at t=750</p>
+        </td>
+      </tr>
+    </table>
+    <h3>One-Step Denoising</h3>
+    <p>We can train the diffusion model with a UNet to denoise the image. The UNet is conditioned on a noise level and uses a timestep as an additional input to predict and remove Gaussian noise to recover images closer to the original.</p>
+    <p>Since the model was trained with text conditioning we also need a text prompt embedding, which is provided for the prompt "a high quality photo".</p>
+    <table>
+      <tr>
+        <td>
+          <img src="output/A/11a.png" width="256" height="256">
+          <p>Noisy Campanile at t=250</p>
+        </td>
+        <td>
+          <img src="output/A/11b.png" width="256" height="256">
+          <p>Noisy Campanile at t=500</p>
+        </td>
+        <td>
+          <img src="output/A/11c.png" width="256" height="256">
+          <p>Noisy Campanile at t=750</p>
+        </td>
+      </tr>
+    </table>
+    <table>
+      <tr>
+        <td>
+          <img src="output/A/13a.png" width="256" height="256">
+          <p>One-Step at t=250</p>
+        </td>
+        <td>
+          <img src="output/A/13b.png" width="256" height="256">
+          <p>One-Step at t=500</p>
+        </td>
+        <td>
+          <img src="output/A/13c.png" width="256" height="256">
+          <p>One-Step at t=750</p>
+        </td>
+      </tr>
+    </table>
+    <img src="output/A/campanile.png" width="256" height="256">
+    <p>Original Campanile</p>
+    <h3>Iterative Denoising</h3>
+    <p>From the previous part we can see that UNet is significantly more successful at denoising the image compared to standard Gaussian blur filtering. However it still fails to denoise when their is an excessive amount of noise.</p>
+    <p>A way we can counteract this is by implementing iterative denoising. We can specify timesteps where we would denoise the image at a certain timestep and use information from the denoised image at the previous timestep and the initial image.</p>
+    <p>We can skip steps to make the process faster and essentially runs the previous process multiple times using other previous output.</p>
+    <table>
+      <tr>
+        <td>
+          <img src="output/A/14e.png" width="256" height="256">
+          <p>Noisy Campanile at t=90</p>
+        </td>
+        <td>
+          <img src="output/A/14d.png" width="256" height="256">
+          <p>Noisy Campanile at t=240</p>
+        </td>
+        <td>
+          <img src="output/A/14c.png" width="256" height="256">
+          <p>Noisy Campanile at t=390</p>
+        </td>
+        <td>
+          <img src="output/A/14b.png" width="256" height="256">
+          <p>Noisy Campanile at t=540</p>
+        </td>
+        <td>
+          <img src="output/A/14a.png" width="256" height="256">
+          <p>Noisy Campanile at t=690</p>
+        </td>
+      </tr>
+    </table>
+    <table>
+      <tr>
+        <td>
+          <img src="output/A/campanile.png" width="256" height="256">
+          <p>Original</p>
+        </td>
+        <td>
+          <img src="output/A/14g.png" width="256" height="256">
+          <p>Iteratively Denoised</p>
+        </td>
+        <td>
+          <img src="output/A/14h.png" width="256" height="256">
+          <p>One-Step Denoised</p>
+        </td>
+          <td>
+          <img src="output/A/14i.png" width="256" height="256">
+          <p>Gaussian Blurred</p>
+        </td>
+      </tr>
+    </table>
 </body>
 </html>
