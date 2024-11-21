@@ -237,5 +237,101 @@
         </td>
       </tr>
     </table>
+    <h3>Diffusion Model Sampling</h3>
+    <p>We can essentially generate random images by inserting random noise as the initial image. We set i_start to 0 and set the prompt to "a high quality photo".</p>
+    <table>
+      <tr>
+        <td>
+          <img src="output/A/15a.png" width="256" height="256">
+          <p>Sample 1</p>
+        </td>
+        <td>
+          <img src="output/A/15b.png" width="256" height="256">
+          <p>Sample 2</p>
+        </td>
+        <td>
+          <img src="output/A/15c.png" width="256" height="256">
+          <p>Sample 3</p>
+        </td>
+          <td>
+          <img src="output/A/15d.png" width="256" height="256">
+          <p>Sample 4</p>
+        </td>
+        </td>
+          <td>
+          <img src="output/A/15e.png" width="256" height="256">
+          <p>Sample 5</p>
+        </td>
+      </tr>
+    </table>
+    <h3>Classifier Free Guidance (CFG)</h3>
+    <p>The randomly generated images from the previous task were not very good in quality and lack substance. We can utilize CFG to greatly improve the quality of the images at the cost of image diversity.</p>
+    <p>We can calculate estimated noise e = e_uncond + gamma * (e_cond - e_uncond)</p>
+    <p>Where gamma controls the strength of the CFG.</p>
+    <p>In the following examples we set "" as the unconditional prompt embed, and leave the prompt embed as "a high quality photo".</p>
+    <table>
+      <tr>
+        <td>
+          <img src="output/A/16a.png" width="256" height="256">
+          <p>Sample 1 with CFG</p>
+        </td>
+        <td>
+          <img src="output/A/16b.png" width="256" height="256">
+          <p>Sample 2 with CFG</p>
+        </td>
+        <td>
+          <img src="output/A/16c.png" width="256" height="256">
+          <p>Sample 3 with CFG</p>
+        </td>
+          <td>
+          <img src="output/A/16d.png" width="256" height="256">
+          <p>Sample 4 with CFG</p>
+        </td>
+        </td>
+          <td>
+          <img src="output/A/16e.png" width="256" height="256">
+          <p>Sample 5 with CFG</p>
+        </td>
+      </tr>
+    </table>
+    <h3>Image-to-image Translation</h3>
+    <p>As we can see with the process of generating random images. The more noise there is an image, the more liberty the Diffusion model has in deciding what the final image will look like.</p>
+    <p>If we run the iterative denoiser by inserting the original image forwarded to different noise levels, we can get a range of images, gradually beginning to look like the original.</p>
+    <p>This method is labeled as the SDEdit algorithm which takes the original image, noises it a little, and then forces it back into the image without conditioning.</p>
+    <table>
+      <tr>
+        <td>
+          <img src="output/A/17b.png" width="256" height="256">
+          <p>SDEdit with i_start=1</p>
+        </td>
+        <td>
+          <img src="output/A/17c.png" width="256" height="256">
+          <p>SDEdit with i_start=3</p>
+        </td>
+        <td>
+          <img src="output/A/17d.png" width="256" height="256">
+          <p>SDEdit with i_start=5</p>
+        </td>
+          <td>
+          <img src="output/A/17e.png" width="256" height="256">
+          <p>SDEdit with i_start=7</p>
+        </td>
+        </td>
+          <td>
+          <img src="output/A/17f.png" width="256" height="256">
+          <p>SDEdit with i_start=10</p>
+        </td>
+        </td>
+          <td>
+          <img src="output/A/17g.png" width="256" height="256">
+          <p>SDEdit with i_start=20</p>
+        </td>
+        </td>
+          <td>
+          <img src="output/A/campanile.png" width="256" height="256">
+          <p>Campanile</p>
+        </td>
+      </tr>
+    </table>
 </body>
 </html>
