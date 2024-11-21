@@ -677,5 +677,102 @@
             </td>
         </tr>
     </table>
+    <h1>Part B</h1>
+    <h3>Training a Single-Step Denoising UNet</h3>
+    <p>In this part we implement a UNet that optimizes over L2 loss.</p>
+    <p>By following the diagram provided displaying downsampling and upsampling blocks as well as skip connections, we can create the data structures and classes that form the UNet's operations.</p>
+    <p>Depending on the level of sigma, the amount of noise that the image experiences differs. The larger the sigma the more noising that occurs.</p>
+    <p>We can train the model with sigma=0.5 over 5 epochs on the MNIST dataset which is various hand-drawn integers from 0 to 9.</p>
+    <p>Using the provided loss function and z = x + sigma * e where e ~ N(0, I)</p>
+    <p>We get the following Training Loss Curve</p>
+    <img src="output/B/1graph.png" width="1056" height="820">
+    <p>When we sample the model over various sigmas from [0.0, 0.2, 0.4, 0.5, 0.6, 0.8, 1.0], we can visualize for the 1st Epoch and 5th Epochs:</p>
+    <table>
+        <tr>
+            <td>
+                <img src="output/B/1a.png" width="1259" height="419">
+                <p>Epoch 1</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="output/B/1h.png" width="1259" height="419">
+                <p>Epoch 5</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="output/B/1b.png" width="1259" height="419">
+                <p>Epoch 1</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="output/B/1j.png" width="1259" height="419">
+                <p>Epoch 5</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="output/B/1c.png" width="1259" height="419">
+                <p>Epoch 1</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="output/B/1k.png" width="1259" height="419">
+                <p>Epoch 5</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="output/B/1d.png" width="1259" height="419">
+                <p>Epoch 1</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="output/B/1l.png" width="1259" height="419">
+                <p>Epoch 5</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="output/B/1e.png" width="1259" height="419">
+                <p>Epoch 1</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="output/B/1m.png" width="1259" height="419">
+                <p>Epoch 5</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="output/B/1f.png" width="1259" height="419">
+                <p>Epoch 1</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="output/B/1n.png" width="1259" height="419">
+                <p>Epoch 5</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="output/B/1g.png" width="1259" height="419">
+                <p>Epoch 1</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="output/B/1o.png" width="1259" height="419">
+                <p>Epoch 5</p>
+            </td>
+        </tr>
+    </table>
+    <p>We can see that as the noising increases, the harder it is for the model to recreate the initial image. The model essentially hallucinates artifacts to be in the image when they were not previously there.</p>
 </body>
 </html>
