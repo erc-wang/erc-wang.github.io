@@ -685,7 +685,7 @@
     <p>We can train the model with sigma=0.5 over 5 epochs on the MNIST dataset which is various hand-drawn integers from 0 to 9.</p>
     <p>Using the provided loss function and z = x + sigma * e where e ~ N(0, I)</p>
     <p>We get the following Training Loss Curve</p>
-    <img src="output/B/1graph.png" width="1056" height="820">
+    <img src="output/B/1graph.png" width="855" height="470">
     <p>When we sample the model over various sigmas from [0.0, 0.2, 0.4, 0.5, 0.6, 0.8, 1.0], we can visualize for the 1st Epoch and 5th Epochs:</p>
     <table>
         <tr>
@@ -774,5 +774,139 @@
         </tr>
     </table>
     <p>We can see that as the noising increases, the harder it is for the model to recreate the initial image. The model essentially hallucinates artifacts to be in the image when they were not previously there.</p>
+    <p>I initially made the mistake of training the model over all of the various sigma levels which required a lot of runtime, but it did show that the model is capable of learning even when the noise levels are significantly high.</p>
+    <table>
+        <tr>
+            <td>
+                <img src="output/B/old/1a.png" width="1259" height="419">
+                <p>Epoch 1</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="output/B/old/1b.png" width="1259" height="419">
+                <p>Epoch 5</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="output/B/old/1c.png" width="863" height="470">
+            </td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <td>
+                <img src="output/B/old/1d.png" width="1259" height="419">
+                <p>Epoch 1</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="output/B/old/1e.png" width="1259" height="419">
+                <p>Epoch 5</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="output/B/old/1f.png" width="863" height="470">
+            </td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <td>
+                <img src="output/B/old/1g.png" width="1259" height="419">
+                <p>Epoch 1</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="output/B/old/1h.png" width="1259" height="419">
+                <p>Epoch 5</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="output/B/old/1i.png" width="863" height="470">
+            </td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <td>
+                <img src="output/B/old/1j.png" width="1259" height="419">
+                <p>Epoch 1</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="output/B/old/1k.png" width="1259" height="419">
+                <p>Epoch 5</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="output/B/old/1l.png" width="863" height="470">
+            </td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <td>
+                <img src="output/B/old/1m.png" width="1259" height="419">
+                <p>Epoch 1</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="output/B/old/1n.png" width="1259" height="419">
+                <p>Epoch 5</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="output/B/old/1o.png" width="863" height="470">
+            </td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <td>
+                <img src="output/B/old/1p.png" width="1259" height="419">
+                <p>Epoch 1</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="output/B/old/1q.png" width="1259" height="419">
+                <p>Epoch 5</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="output/B/old/1r.png" width="863" height="470">
+            </td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <td>
+                <img src="output/B/old/1s.png" width="1259" height="419">
+                <p>Epoch 1</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="output/B/old/1t.png" width="1259" height="419">
+                <p>Epoch 5</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="output/B/old/1u.png" width="863" height="470">
+            </td>
+        </tr>
+    </table>
 </body>
 </html>
