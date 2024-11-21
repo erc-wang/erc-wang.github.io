@@ -333,5 +333,287 @@
         </td>
       </tr>
     </table>
+    <h3>Editing Hand-Drawn and Web Images</h3>
+    <p>Following the same SDEdit algorithm, we can experiment with the creativity of the diffusion model by inserting images from the web and hand-drawn images that may not resemble anything at all.</p>
+    <p>The Diffusion model will denoise these and create something from seemingly nothing.</p>
+    <table>
+      <tr>
+        <td>
+          <img src="output/A/171b.png" width="256" height="256">
+          <p>SDEdit with i_start=1</p>
+        </td>
+        <td>
+          <img src="output/A/171c.png" width="256" height="256">
+          <p>SDEdit with i_start=3</p>
+        </td>
+        <td>
+          <img src="output/A/171d.png" width="256" height="256">
+          <p>SDEdit with i_start=5</p>
+        </td>
+          <td>
+          <img src="output/A/171e.png" width="256" height="256">
+          <p>SDEdit with i_start=7</p>
+        </td>
+        </td>
+          <td>
+          <img src="output/A/171f.png" width="256" height="256">
+          <p>SDEdit with i_start=10</p>
+        </td>
+        </td>
+          <td>
+          <img src="output/A/171g.png" width="256" height="256">
+          <p>SDEdit with i_start=20</p>
+        </td>
+        </td>
+          <td>
+          <img src="output/A/171a.png" width="256" height="256">
+          <p>Donkey Kong</p>
+        </td>
+      </tr>
+    </table>
+    <table>
+      <tr>
+        <td>
+          <img src="output/A/171i.png" width="256" height="256">
+          <p>SDEdit with i_start=1</p>
+        </td>
+        <td>
+          <img src="output/A/171j.png" width="256" height="256">
+          <p>SDEdit with i_start=3</p>
+        </td>
+        <td>
+          <img src="output/A/171k.png" width="256" height="256">
+          <p>SDEdit with i_start=5</p>
+        </td>
+          <td>
+          <img src="output/A/171l.png" width="256" height="256">
+          <p>SDEdit with i_start=7</p>
+        </td>
+        </td>
+          <td>
+          <img src="output/A/171m.png" width="256" height="256">
+          <p>SDEdit with i_start=10</p>
+        </td>
+        </td>
+          <td>
+          <img src="output/A/171n.png" width="256" height="256">
+          <p>SDEdit with i_start=20</p>
+        </td>
+        </td>
+          <td>
+          <img src="output/A/171h.png" width="256" height="256">
+          <p>Original Sketch</p>
+        </td>
+      </tr>
+    </table>
+    <table>
+      <tr>
+        <td>
+          <img src="output/A/171p.png" width="256" height="256">
+          <p>SDEdit with i_start=1</p>
+        </td>
+        <td>
+          <img src="output/A/171q.png" width="256" height="256">
+          <p>SDEdit with i_start=3</p>
+        </td>
+        <td>
+          <img src="output/A/171r.png" width="256" height="256">
+          <p>SDEdit with i_start=5</p>
+        </td>
+          <td>
+          <img src="output/A/171s.png" width="256" height="256">
+          <p>SDEdit with i_start=7</p>
+        </td>
+        </td>
+          <td>
+          <img src="output/A/171t.png" width="256" height="256">
+          <p>SDEdit with i_start=10</p>
+        </td>
+        </td>
+          <td>
+          <img src="output/A/171u.png" width="256" height="256">
+          <p>SDEdit with i_start=20</p>
+        </td>
+        </td>
+          <td>
+          <img src="output/A/171o.png" width="256" height="256">
+          <p>Original Sketch</p>
+        </td>
+      </tr>
+    </table>
+    <h3>Inpainting</h3>
+    <p>We can use a binary mask that overlays the original image to determine a section(s) of the original image that we want to remain consistent, whereas the rest is up to change.</p>
+    <p>This can be done by doing the standard iterative denoising process, however at the end of every loop we force only the masked pixels to be changed from the original image. </p>
+    <table>
+        <tr>
+            <td>
+                <img src="output/A/172a.png" width="256" height="256">
+                <p>Campanile</p>
+            </td>
+            <td>
+                <img src="output/A/172b.png" width="256" height="256">
+                <p>Mask</p>
+            </td>
+            <td>
+                <img src="output/A/172c.png" width="256" height="256">
+                <p>Hole to Fill</p>
+            </td>
+            <td>
+                <img src="output/A/172g.png" width="256" height="256">
+                <p>Campanile Inpainted</p>
+            </td>
+        </tr>
+    </table>
+    <p>The colors tend to become a bit distorted as the process continues as it tries to iterate on only the noisy location which is separate from the rest of the image that is not masked.</p>
+    <p>As a result we also need to run this process a few times in order to produce desirable results.</p>
+    <table>
+        <tr>
+            <td>
+                <img src="output/A/172i.png" width="256" height="256">
+                <p>Meme</p>
+            </td>
+            <td>
+                <img src="output/A/172j.png" width="256" height="256">
+                <p>Mask</p>
+            </td>
+            <td>
+                <img src="output/A/172k.png" width="256" height="256">
+                <p>Hole to Fill</p>
+            </td>
+            <td>
+                <img src="output/A/172l.png" width="256" height="256">
+                <p>Meme Inpainted</p>
+            </td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <td>
+                <img src="output/A/172m.png" width="256" height="256">
+                <p>Laptop</p>
+            </td>
+            <td>
+                <img src="output/A/172n.png" width="256" height="256">
+                <p>Mask</p>
+            </td>
+            <td>
+                <img src="output/A/172o.png" width="256" height="256">
+                <p>Hole to Fill</p>
+            </td>
+            <td>
+                <img src="output/A/172q.png" width="256" height="256">
+                <p>Laptop Inpainted</p>
+            </td>
+        </tr>
+    </table>
+    <p>The meme example is honestly really not great, but I was curious how well the Diffusion model and the mask would work on an area that literally has no information within it.</p>
+    <p>Color artifacts can clearly be seen where the masked area is shades darker than the rest of the image, however the affects of the white color can be seen in the fact that the inpainting is entirely grayscale.</p>
+    <h3>Text-Conditional Image-to-image Translation</h3>
+    <p>We can perform SDEdit as seen earlier but with a prompt conditional. By changing "a high quality photo" with something like "a rocket ship", we can greatly influence the output.</p>
+    <table>
+      <tr>
+        <td>
+          <img src="output/A/173a.png" width="256" height="256">
+          <p>Rocket Ship at noise level 1</p>
+        </td>
+        <td>
+          <img src="output/A/173b.png" width="256" height="256">
+          <p>Rocket Ship at noise level 3</p>
+        </td>
+        <td>
+          <img src="output/A/173c.png" width="256" height="256">
+          <p>Rocket Ship at noise level 5</p>
+        </td>
+          <td>
+          <img src="output/A/173d.png" width="256" height="256">
+          <p>Rocket Ship at noise level 7</p>
+        </td>
+        </td>
+          <td>
+          <img src="output/A/173e.png" width="256" height="256">
+          <p>Rocket Ship at noise level 10</p>
+        </td>
+        </td>
+          <td>
+          <img src="output/A/173f.png" width="256" height="256">
+          <p>Rocket Ship at noise level 20</p>
+        </td>
+        </td>
+          <td>
+          <img src="output/A/campanile.png" width="256" height="256">
+          <p>Campanile</p>
+        </td>
+      </tr>
+    </table>
+    <table>
+      <tr>
+        <td>
+          <img src="output/A/173g.png" width="256" height="256">
+          <p>Rocket Ship at noise level 1</p>
+        </td>
+        <td>
+          <img src="output/A/173h.png" width="256" height="256">
+          <p>Rocket Ship at noise level 3</p>
+        </td>
+        <td>
+          <img src="output/A/173i.png" width="256" height="256">
+          <p>Rocket Ship at noise level 5</p>
+        </td>
+          <td>
+          <img src="output/A/173j.png" width="256" height="256">
+          <p>Rocket Ship at noise level 7</p>
+        </td>
+        </td>
+          <td>
+          <img src="output/A/173k.png" width="256" height="256">
+          <p>Rocket Ship at noise level 10</p>
+        </td>
+        </td>
+          <td>
+          <img src="output/A/173l.png" width="256" height="256">
+          <p>Rocket Ship at noise level 20</p>
+        </td>
+        </td>
+          <td>
+          <img src="output/A/171g.png" width="256" height="256">
+          <p>Donkey Kong</p>
+        </td>
+      </tr>
+    </table>
+    <table>
+      <tr>
+        <td>
+          <img src="output/A/173n.png" width="256" height="256">
+          <p>Rocket Ship at noise level 1</p>
+        </td>
+        <td>
+          <img src="output/A/173o.png" width="256" height="256">
+          <p>Rocket Ship at noise level 3</p>
+        </td>
+        <td>
+          <img src="output/A/173p.png" width="256" height="256">
+          <p>Rocket Ship at noise level 5</p>
+        </td>
+          <td>
+          <img src="output/A/173q.png" width="256" height="256">
+          <p>Rocket Ship at noise level 7</p>
+        </td>
+        </td>
+          <td>
+          <img src="output/A/173r.png" width="256" height="256">
+          <p>Rocket Ship at noise level 10</p>
+        </td>
+        </td>
+          <td>
+          <img src="output/A/173s.png" width="256" height="256">
+          <p>Rocket Ship at noise level 20</p>
+        </td>
+        </td>
+          <td>
+          <img src="output/A/173m.png" width="256" height="256">
+          <p>Pencils</p>
+        </td>
+      </tr>
+    </table>
 </body>
 </html>
