@@ -620,6 +620,62 @@
     <p>We can do this by getting the noise estimate of the image upright and upside down utilizing the UNet.</p>
     <p>We can perform CFG accordingly on these prompts in both directions and get the average of these noise estimates.</p>
     <p>Using this final noise estimate we can produce these anagrams.</p>
-    <p>An image of </p>
+    <p>an image of "an oil painting of people around a campfire" and "an oil painting of an old man" when flipped</p>
+    <table>
+        <tr>
+            <td>
+                <p>An Oil Painting of People around a Campfire</p>
+                <img src="output/A/18a.png" width="256" height="256">
+            </td>
+            <td>
+                <img src="output/A/18b.png" width="256" height="256">
+                <p>An Oil Painting of an Old Man</p>
+            </td>
+        </tr>
+    </table>
+    <p>an image of "a photo of a hipster barista" and "an oil painting of an old man" when flipped</p>
+    <table>
+        <tr>
+            <td>
+                <p>A Photo of a Hipster Barista</p>
+                <img src="output/A/18c.png" width="256" height="256">
+            </td>
+            <td>
+                <img src="output/A/18d.png" width="256" height="256">
+                <p>An Oil Painting of an Old Man</p>
+            </td>
+        </tr>
+    </table>
+    <p>an image of "a photo of the amalfi cost" and "a photo of a dog" when flipped</p>
+    <table>
+        <tr>
+            <td>
+                <p>A Photo of the Amalfi Cost</p>
+                <img src="output/A/18e.png" width="256" height="256">
+            </td>
+            <td>
+                <img src="output/A/18f.png" width="256" height="256">
+                <p>A Photo of a Dog</p>
+            </td>
+        </tr>
+    </table>
+    <h3>Hybrid Images</h3>
+    <p>We can use a similar process to visual anagrams to create hybrid images like in project 2. We can get the noise estimates from all prompts and then insert one into a low pass filter and the other into a high pass filter and add them together to get our noise estimate.</p>
+    <table>
+        <tr>
+            <td>
+                <img src="output/A/19sub2.png" width="256" height="256">
+                <p>Hybrid Image of a Skull and a Waterfall</p>
+            </td>
+            <td>
+                <img src="output/A/19c.png" width="256" height="256">
+                <p>Hybrid Image of an Old Man and a Snowy Mountain Village</p>
+            </td>
+            <td>
+                <img src="output/A/19d.png" width="256" height="256">
+                <p>Hybrid Image of an Old Man and People Around a Campfire</p>
+            </td>
+        </tr>
+    </table>
 </body>
 </html>
