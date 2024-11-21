@@ -921,17 +921,39 @@
     <table>
         <tr>
             <td>
-                <img src="output/B/22a.png" width="1259" height="419">
+                <img src="output/B/22a.png" width="1238" height="405">
                 <p>Epoch 5</p>
             </td>
         </tr>
         <tr>
             <td>
-                <img src="output/B/22b.png" width="1259" height="419">
+                <img src="output/B/22b.png" width="1238" height="405">
                 <p>Epoch 20</p>
             </td>
         </tr>
     </table>
-    
+    <p>The results aren't exactly the most spectacular, however you can see some effort in learning the integers.</p>
+    <h2>Class Conditional UNet</h2>
+    <p>We can get even better results by conditioning the UNet on the classes of each digit from 0 to 9.</p>
+    <p>We can do this by adding 2 more FCBlocks to our UNet which are multiplied to the unflatten and first upblock.</p>
+    <p>We also implement a dropout p_uncond = 0.1 where 10% of the time, we draw the class conditioning vector.</p>
+    <p>Following the provided pseudocode algorithm for training and sampling, we can run a similar process to the previous 2 parts.</p>
+    <p>The training provides us with the log loss curve:</p>
+    <img src="output/B/25a.png" width="844" height="470">
+    <p>We then sample from Epochs 5 and 20 and visualize 4 of each integer from the MNIST dataset.</p>
+    <table>
+        <tr>
+            <td>
+                <img src="output/B/25b.png" width="1238" height="405">
+                <p>Epoch 5</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="output/B/25c.png" width="1238" height="405">
+                <p>Epoch 20</p>
+            </td>
+        </tr>
+    </table>
 </body>
 </html>
