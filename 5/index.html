@@ -908,5 +908,30 @@
             </td>
         </tr>
     </table>
+    <h3>Training a Diffusion Model</h3>
+    <h2>Time Conditional UNet</h2>
+    <p>We can now implement DDPM in the model to allow a UNet model to iteratively denoise an image. This process will use arithmetic similar to portions of part A.</p>
+    <p>Since we are now using Diffusion, we want to sample a pure noise image and generate a realistic image from the noise.</p>
+    <p>To add this iterative element, we need a way to inject a scalar t time step into our model. This can be done by creating FCBlocks that are added following the unflatten and the first upblock.</p>
+    <p>We can then train and sample the model following the provided pseudocode algorithms for the Conditional UNet.</p>
+    <p>By training the model for 20 epochs, we receive the loss curve:</p>
+    <img src="output/B/22c.png" width="846" height="470">
+    <p>If this graph was calculated as log loss, it would resemble the graph on the project spec</p>
+    <p>When we sample 40 random images from Diffusion process at Epochs 5 and 20, we receive:</p>
+    <table>
+        <tr>
+            <td>
+                <img src="output/B/22a.png" width="1259" height="419">
+                <p>Epoch 5</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="output/B/22b.png" width="1259" height="419">
+                <p>Epoch 20</p>
+            </td>
+        </tr>
+    </table>
+    
 </body>
 </html>
