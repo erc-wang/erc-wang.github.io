@@ -23,6 +23,7 @@
     <p>minimize (v(1,1)-s(1,1))^2</p>
     <p>These equations cover every pixel's gradient values as well as comparing the color values of the top 2 corners.</p>
     <p>After initializing and filling in a sparse matrix and the constraints, we solve using least squares.</p>
+    <p>Results:</p>
     <table>
         <tr>
             <td>
@@ -35,19 +36,32 @@
             </td>
         </tr>
     </table>
-    <p>The images are selected and taken intentionally so that some elements overlap from picture to picture</p>
-    <h3>Recover Homographies</h3>
-    <p>Using the same correspondence tool provided by the spec of project 3. I labeled corresponding points from a pair of images using their clicking tool.</p>
+    <p>We can see that both the original sample and the reconstructed image are roughly the same, indicating a decent implementation of gradient domain fusion.</p>
+    <h3>Poisson Blending</h3>
+    <p>This technique essentially performs the same operation as the toy problem, but instead of comparing the gradients of itself, we will minimize the square differences of the gradients from one image with the gradients of another image.</p>
+    <p>This will put one image as the background, and another image to be inpainted within the background.</p>
+    <p>By comparing the gradients, we can get values that serve as a balance between both images, causing a more seamless blend/integration.</p>
+    <p>This can be done by performing a similar operation to the toy problem, while integrating a mask to serve as the location of the blending.</p>
+    <p>The images were downscaled to allow the process to run better.</p>
     <table>
         <tr>
             <td>
-                <img src="output/couch1_points.jpg" width="800" height="600">
+                <img src="output/im3.jpg" width="235" height="176">
+                <p>Background</p>
             </td>
             <td>
-                <img src="output/couch2_points.jpg" width="800" height="600">
+                <img src="output/penguin.jpg" width="167" height="250">
+                <p>Target</p>
+            </td>
+            <td>
+                <img src="output/3_pc_trg.jpg" width="235" height="176">
+                <p>Objective</p>
+            </td>
+            <td>
+                <img src="output/3_pc_mask.jpg" width="235" height="176">
+                <p>Mask</p>
             </td>
         </tr>
     </table>
-    
 </body>
 </html>
