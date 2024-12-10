@@ -145,5 +145,30 @@
         </tr>
     </table>
     <p>The penguin cases worked quite well. I think that this is a result of the colors and backgrounds of the two images already looking very similar, making it easier for such a blend to have a effect. </p>
+    <p>The case of soldier and the Team Fortress 2 map is not quite as successful as I hoped it would be. I thought it would be interesting to insert the POV of the soldier on a different map from the same game and see if it could blend in the FOV appropriately.</p>
+    <p>The masking does not entirely encompass the complex shape that cuts in and out of the canvas (under the rocket launcher).</p>
+    <p>The project spec also mentioned that the masking area could be quite generous so I tried playing around with to see how much I could mask in comparison to the larger background size.</p>
+    <p>The larger image to be blended seems to cause a significant amount of distortion in the surrounding area.</p>
+    <h3>Bells and Whistles: Color2Gray</h3>
+    <p>This task involves attempting to create a better implementation of converting a color to grayscale.</p>
+    <p>Certain images such as colorblind tests, when converted to grayscale, lose important contrast information leaving an image seemingly without the significant features.</p>
+    <p>We can retain some of this information by converting the images into HSV form and comparing the values of a neighboring pixel's saturation and value, with whatever one having the larger magnitude taking priority when selecting.</p>
+    <p>Results</p>
+    <table>
+        <tr>
+            <td>
+                <img src="samples/colorBlindTest35.png" width="256" height="250">
+                <p>Original</p>
+            </td>
+            <td>
+                <img src="output/grayscale.jpg" width="256" height="250">
+                <p>rgb2gray</p>
+            </td>
+            <td>
+                <img src="output/c2g.jpg" width="256" height="250">
+                <p>Color2Gray</p>
+            </td>
+        </tr>
+    </table>
 </body>
 </html>
