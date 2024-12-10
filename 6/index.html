@@ -172,6 +172,56 @@
     <h2>Lightfield Camera</h2>
     <p>This project involves 2 parts: depth refocusing, and aperture adjustment which play with effects on a set of images.</p>
     <p>For this project we use specially taken images over a regularly spaced grid that are provided by the Stanford Light Field Archive.</p>
-    
+    <p>Images were downscaled for the program to work more efficiently.</p>
+    <h3>Depth Refocusing</h3>
+    <p>This concept involves shifting and averaging sets of images to create a combined image that is focused at different depths. We can see this concept at play if we take the average of all images. This will cause objects farther from the viewer to have a higher focus.</p>
+    <p>Using the compiled image library, we can create a 17x17 array based on the 289 images and revolve our refocusing around the center image at (8, 8).</p>
+    <p>Depending on the scale selected, we can view the image at varying focus levels.</p>
+    <p>Chess Results (Scale from -0.3 to 1.6):</p>
+    <table>
+        <tr>
+            <td>
+                <img src="output/dr/chess1.jpg" width="350" height="200">
+                <p>Scale = -0.3</p>
+            </td>
+            <td>
+                <img src="output/dr/chess12.jpg" width="350" height="200">
+                <p>Scale = 0.46</p>
+            </td>
+            <td>
+                <img src="output/dr/chess24.jpg" width="350" height="200">
+                <p>Scale = 1.22</p>
+            </td>
+            <td>
+                <img src="output/dr/chess30.jpg" width="350" height="200">
+                <p>Scale = 1.6</p>
+            </td>
+        </tr>
+    </table>
+    <p>Gif of Process</p>
+    <img src="output/dr/chess.gif" width="700" height="400">
+    <p>Lego Results (Scale from -1 to 4.4):</p>
+    <table>
+        <tr>
+            <td>
+                <img src="output/dr/lego1.jpg" width="384" height="288">
+                <p>Scale = -1</p>
+            </td>
+            <td>
+                <img src="output/dr/lego12.jpg" width="384" height="288">
+                <p>Scale = 1.16</p>
+            </td>
+            <td>
+                <img src="output/dr/lego24.jpg" width="384" height="288">
+                <p>Scale = 3.32</p>
+            </td>
+            <td>
+                <img src="output/dr/lego30.jpg" width="384" height="288">
+                <p>Scale = 4.4</p>
+            </td>
+        </tr>
+    </table>
+    <p>Gif of Process</p>
+    <img src="output/dr/lego.gif" width="384" height="288">
 </body>
 </html>
